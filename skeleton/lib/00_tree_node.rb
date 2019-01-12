@@ -35,4 +35,27 @@ class PolyTreeNode
         raise unless children.include?(child_node)
     end
 
+    def dfs(target)
+        return self if self.value == target
+
+        self.children.each do |child|
+            node = child.dfs(target)
+            return node unless node == nil
+        end
+        nil
+    end
+
+    def bfs(target)
+        q = []
+        return self if self.value == target
+
+        q += self.children 
+        until q.empty?
+            curr_node = q.shift
+            return curr_node if curr_node.value == target 
+            q += curr_node.children
+        end
+        nil
+    end
+
 end
